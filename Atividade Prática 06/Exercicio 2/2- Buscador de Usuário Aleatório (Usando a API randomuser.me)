@@ -1,0 +1,37 @@
+# 2- Buscador de Usuário Aleatório (Usando a API randomuser.me)
+import requests
+
+def buscar_usuario_aleatorio():
+    """
+    Busca um usuário fictício na API Random User Generator e exibe seus dados.
+    """
+    url = "https://randomuser.me/api/"
+    print("Buscando um usuário aleatório...")
+
+    try:
+        # Faz a requisição para a API
+        response = requests.get(url)
+        
+        # Verifica se a requisição foi bem-sucedida
+        if response.status_code == 200:
+            # Converte a resposta para o formato JSON
+            dados = response.json()
+            usuario = dados['results'][0]
+
+            # Extrai as informações desejadas
+            nome_completo = f"{usuario['name']['first']} {usuario['name']['last']}"
+            email = usuario['email']
+            pais = usuario['location']['country']
+
+            print("\n--- Usuário Encontrado ---")
+            print(f"Nome: {nome_completo}")
+            print(f"E-mail: {email}")
+            print(f"País: {pais}")
+        else:
+            print(f"Falha na conexão. Código de status: {response.status_code}")
+
+    except requests.exceptions.RequestException as e:
+        print(f"Erro de conexão com a API: {e}")
+
+# --- Execução da função ---
+buscar_usuario_aleatorio()

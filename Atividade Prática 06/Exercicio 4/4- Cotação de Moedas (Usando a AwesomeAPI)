@@ -1,0 +1,46 @@
+# 4- Cotação de Moedas (Usando a AwesomeAPI)
+import requests
+from datetime import datetime
+
+def consultar_cotacao(moeda):
+    """
+    Consulta a cotação de uma moeda em relação ao BRL usando a AwesomeAPI.
+    """
+    # Formata o código da moeda (ex: USD para USD-BRL)
+    codigo_moeda = f"{moeda.upper()}-BRL"
+    url = f"https://economia.awesomeapi.com.br/json/last/{codigo_moeda}"
+
+    print(f"\nConsultando cotação para {codigo_moeda}...")
+
+    try:
+        response = requests.get(url)
+        
+        # AwesomeAPI retorna 404 para moedas não encontradas
+        if response.status_code == 200:
+            dados = response.json()
+            # A chave do dicionário é a junção das moedas, ex: USDBRL
+            chave_dicionario = codigo_moeda.replace('-', '')
+            cotacao = dados[chave_dicionario]
+
+            # Converte o timestamp para uma data e hora legível
+            timestamp = int(cotacao['timestamp'])
+            data_atualizacao = datetime.fromtimestamp(timestamp).strftime('%d/%m/%Y %H:%M:%S')
+
+            print("\n--- Cotação Atual ---")
+            print(f"Moeda: {cotacao['name']}")
+            print(f"Valor Atual (Compra): R$ {float(cotacao['bid']):.4f}")
+            print(f"Máxima do Dia: R$ {float(cotacao['high']):.4f}")
+            print(f"Mínima do Dia: R$ {float(cotacao['low']):.4f}")
+            print(f"Última Atualização: {data_atualizacao}")
+
+        elif response.status_code == 404:
+            print(f"Erro: A moeda '{moeda.upper()}' não foi encontrada ou não possui cotação para BRL.")
+        else:
+            print(f"Falha na requisição. Código de status: {response.status_code}")
+            
+    except requests.exceptions.RequestException as e:
+        print(f"Erro de conexão com a API: {e}")
+
+# --- Interação com o usuário ---
+moeda_usuario = input("Digite o código da moeda para consultar (ex: USD, EUR, BTC): ")
+consultar_cotacao(moeda_usuario)

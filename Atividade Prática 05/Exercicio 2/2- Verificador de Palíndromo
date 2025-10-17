@@ -1,0 +1,19 @@
+# 2- Verificador de Palíndromo
+
+def verificar_palindromo(frase):
+    """
+    Verifica se uma palavra ou frase é um palíndromo.
+    """
+    # Normaliza a string: remove espaços e pontuação, converte para minúsculas
+    texto_normalizado = "".join(char.lower() for char in frase if char.isalnum())
+
+    # Compara o texto normalizado com sua versão invertida
+    return texto_normalizado == texto_normalizado[::-1]
+
+# --- Demonstração da função ---
+texto_usuario = input("Digite uma palavra ou frase para verificar se é um palíndromo: ")
+
+if verificar_palindromo(texto_usuario):
+    print("Sim")
+else:
+    print("Não")

@@ -1,0 +1,34 @@
+# 3- Calculadora de Preço Final
+
+def calcular_preco_final(preco_original, percentual_desconto):
+    """
+    (a) Calcula o valor do desconto e (b) determina o novo preço.
+    """
+    if percentual_desconto < 0 or percentual_desconto > 100:
+        return None # Retorna None se o desconto for inválido
+
+    valor_desconto = preco_original * (percentual_desconto / 100)
+    preco_com_desconto = preco_original - valor_desconto
+    # (c) Formatação e retorno
+    return round(preco_com_desconto, 2)
+
+# --- (d) Interação com usuário ---
+try:
+    preco_str = input("Digite o preço original do produto: R$ ")
+    desconto_str = input("Digite o percentual de desconto (ex: 20 para 20%): ")
+
+    preco = float(preco_str)
+    desconto = float(desconto_str)
+
+    preco_final = calcular_preco_final(preco, desconto)
+
+    if preco_final is not None:
+        print("\n--- Detalhes da Compra ---")
+        print(f"Preço Original: R$ {preco:.2f}")
+        print(f"Desconto Aplicado: {desconto}%")
+        print(f"Preço Final com Desconto: R$ {preco_final:.2f}")
+    else:
+        print("Erro: A porcentagem de desconto deve estar entre 0 e 100.")
+
+except ValueError:
+    print("Entrada inválida. Por favor, digite valores numéricos.")

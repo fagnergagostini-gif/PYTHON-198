@@ -1,0 +1,32 @@
+# 1- Calculadora de Gorjeta
+
+def calcular_gorjeta(valor_conta, porcentagem_gorjeta):
+    """
+    Calcula o valor da gorjeta baseado no total da conta e na porcentagem desejada.
+
+    Parâmetros:
+    valor_conta (float): O valor total da conta.
+    porcentagem_gorjeta (float): A porcentagem da gorjeta (ex: 10 para 10%).
+
+    Retorna:
+    float: O valor da gorjeta calculada.
+    """
+    if valor_conta >= 0 and porcentagem_gorjeta >= 0:
+        gorjeta = (valor_conta * porcentagem_gorjeta) / 100
+        return gorjeta
+    return 0
+
+# --- Demonstração da função ---
+try:
+    conta = float(input("Digite o valor total da conta: R$ "))
+    porcentagem = float(input("Digite a porcentagem de gorjeta desejada (ex: 15): "))
+
+    valor_da_gorjeta = calcular_gorjeta(conta, porcentagem)
+    valor_total_com_gorjeta = conta + valor_da_gorjeta
+
+    print("\n--- Resumo da Conta ---")
+    print(f"Valor da Gorjeta: R$ {valor_da_gorjeta:.2f}")
+    print(f"Valor Total a Pagar: R$ {valor_total_com_gorjeta:.2f}")
+
+except ValueError:
+    print("Entrada inválida. Por favor, digite apenas números.")

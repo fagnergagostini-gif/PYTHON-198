@@ -1,0 +1,29 @@
+# 4- Analisador de Números Pares e Ímpares
+
+contador_pares = 0
+contador_impares = 0
+
+print("Digite números inteiros (ou 'parar' para finalizar):")
+
+while True:
+    entrada = input("> ")
+
+    if entrada.lower() == 'parar':
+        break
+
+    try:
+        numero = int(entrada)
+        # Verifica se o número é par ou ímpar
+        if numero % 2 == 0:
+            print(f"{numero} é PAR.")
+            contador_pares += 1
+        else:
+            print(f"{numero} é ÍMPAR.")
+            contador_impares += 1
+    except ValueError:
+        print("Entrada inválida. Por favor, digite um número inteiro ou 'parar'.")
+
+# Exibe o resumo final
+print("\n--- Resumo da Análise ---")
+print(f"Total de números pares inseridos: {contador_pares}")
+print(f"Total de números ímpares inseridos: {contador_impares}")

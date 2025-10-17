@@ -1,0 +1,25 @@
+# 4- Calculadora de Dias de Vida
+from datetime import datetime
+
+try:
+    # Solicita a data de nascimento no formato Dia/Mês/Ano
+    data_nascimento_str = input("Digite sua data de nascimento (DD/MM/AAAA): ")
+
+    # Converte a string de texto para um objeto de data
+    data_nascimento = datetime.strptime(data_nascimento_str, "%d/%m/%Y").date()
+
+    # Pega a data de hoje
+    data_hoje = datetime.now().date()
+    
+    # Verifica se a data de nascimento não é no futuro
+    if data_nascimento > data_hoje:
+        print("Erro: A data de nascimento não pode ser uma data futura.")
+    else:
+        # Calcula a diferença entre as datas
+        diferenca = data_hoje - data_nascimento
+    
+        # Exibe o número de dias da diferença
+        print(f"\nVocê está vivo há {diferenca.days} dias.")
+
+except ValueError:
+    print("Formato de data inválido. Por favor, use o formato DD/MM/AAAA.")

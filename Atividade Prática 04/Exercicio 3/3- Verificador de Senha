@@ -1,0 +1,28 @@
+# 3- Verificador de Senha
+
+senha = input("Crie uma senha: ")
+
+# Critérios de validação
+tem_minimo_8_chars = False
+tem_numero = False
+
+# 1 - Verifica o comprimento
+if len(senha) >= 8:
+    tem_minimo_8_chars = True
+
+# 2 - Verifica se contém pelo menos um número
+for caractere in senha:
+    if caractere.isdigit():
+        tem_numero = True
+        break # Otimização: para o loop assim que encontrar o primeiro número
+
+# Exibe o resultado da verificação
+print("\n--- Análise da Senha ---")
+if tem_minimo_8_chars and tem_numero:
+    print("✅ Senha válida e segura!")
+else:
+    print("❌ Senha inválida. Verifique os critérios abaixo:")
+    if not tem_minimo_8_chars:
+        print("   - A senha deve ter pelo menos 8 caracteres.")
+    if not tem_numero:
+        print("   - A senha deve conter pelo menos um número.")

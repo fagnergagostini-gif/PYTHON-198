@@ -1,0 +1,37 @@
+# 3- Consulta de CEP (Usando a API ViaCEP)
+import requests
+
+def consultar_cep(cep):
+    """
+    Consulta um CEP na API ViaCEP e retorna as informações de endereço.
+    """
+    # Formata o CEP para conter apenas números
+    cep_formatado = cep.replace("-", "").replace(".", "").strip()
+    url = f"https://viacep.com.br/ws/{cep_formatado}/json/"
+    
+    print(f"\nConsultando o CEP {cep}...")
+
+    try:
+        response = requests.get(url)
+        
+        if response.status_code == 200:
+            dados = response.json()
+            
+            # Verifica se o CEP retornado não contém um erro (CEP inexistente)
+            if 'erro' not in dados:
+                print("\n--- Endereço Encontrado ---")
+                print(f"Logradouro: {dados.get('logradouro', 'N/A')}")
+                print(f"Bairro: {dados.get('bairro', 'N/A')}")
+                print(f"Cidade: {dados.get('localidade', 'N/A')}")
+                print(f"Estado: {dados.get('uf', 'N/A')}")
+            else:
+                print("CEP não encontrado ou inexistente.")
+        else:
+            print(f"Falha na requisição. Código de status: {response.status_code}")
+
+    except requests.exceptions.RequestException as e:
+        print(f"Erro de conexão com a API: {e}")
+
+# --- Interação com o usuário ---
+cep_usuario = input("Digite o CEP que deseja consultar (ex: 01001-000): ")
+consultar_cep(cep_usuario)

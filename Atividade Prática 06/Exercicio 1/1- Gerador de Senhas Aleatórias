@@ -1,0 +1,45 @@
+# 1- Gerador de Senhas Aleatórias
+import random
+import string
+
+def gerar_senha(tamanho):
+    """
+    Gera uma senha aleatória com o tamanho especificado.
+    """
+    if tamanho < 4:
+        print("O tamanho da senha deve ser de pelo menos 4 caracteres para garantir a segurança.")
+        return None
+
+    # Define os caracteres que podem ser usados na senha
+    letras = string.ascii_letters  # a-z, A-Z
+    numeros = string.digits       # 0-9
+    simbolos = string.punctuation # !, @, #, $, etc.
+
+    # Garante que a senha tenha pelo menos uma letra, um número e um símbolo
+    senha_parcial = [
+        random.choice(letras),
+        random.choice(numeros),
+        random.choice(simbolos)
+    ]
+
+    # Completa o resto da senha com uma combinação de todos os tipos de caracteres
+    caracteres_todos = letras + numeros + simbolos
+    for _ in range(tamanho - 3):
+        senha_parcial.append(random.choice(caracteres_todos))
+
+    # Embaralha a lista para garantir que os caracteres obrigatórios não fiquem sempre no início
+    random.shuffle(senha_parcial)
+
+    # Junta os caracteres para formar a senha final
+    return "".join(senha_parcial)
+
+# --- Interação com o usuário ---
+try:
+    tamanho_senha = int(input("Digite o tamanho desejado para a senha: "))
+    senha_gerada = gerar_senha(tamanho_senha)
+
+    if senha_gerada:
+        print(f"\nSenha gerada com sucesso: {senha_gerada}")
+
+except ValueError:
+    print("Entrada inválida. Por favor, digite um número inteiro.")
